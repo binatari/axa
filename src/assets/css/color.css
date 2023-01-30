@@ -1,0 +1,13 @@
+.bg-custom-red-100,
+.bg-custom-red-200,
+.bg-custom-red-300,
+.bg-custom-red-400,
+.bg-custom-red-500,
+.bg-custom-red-600,
+.bg-custom-red-700 {
+  background-color: #8f0035 !important;
+}
+
+.custom-red{
+    color: #8f0035 !important
+}
