@@ -1,11 +1,13 @@
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { useAuthProvider } from '../context/AuthProvider';
 
 // import { isAuthenticated } from '../helpers';
-const isAuthenticated = true
 const RouteUnauthenticated = ({ component: Component, path }) => {
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+const {state} = useAuthProvider()
+  
+  if (!state) {
+    return null;
   }
 
   return <Route component={Component} path={path} />;

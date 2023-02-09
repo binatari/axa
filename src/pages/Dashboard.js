@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import CTA from '../components/CTA'
-import InfoCard from '../components/Cards/InfoCard'
-import ChartCard from '../components/Chart/ChartCard'
-import { Doughnut, Line } from 'react-chartjs-2'
-import ChartLegend from '../components/Chart/ChartLegend'
-import PageTitle from '../components/Typography/PageTitle'
-import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from '../icons'
-import RoundIcon from '../components/RoundIcon'
-import response from '../utils/demo/tableData'
+import CTA from "../components/CTA";
+import InfoCard from "../components/Cards/InfoCard";
+import ChartCard from "../components/Chart/ChartCard";
+import { Doughnut, Line } from "react-chartjs-2";
+import ChartLegend from "../components/Chart/ChartLegend";
+import PageTitle from "../components/Typography/PageTitle";
+import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
+import RoundIcon from "../components/RoundIcon";
+import response from "../utils/demo/tableData";
 import {
   TableBody,
   TableContainer,
@@ -20,35 +20,92 @@ import {
   Avatar,
   Badge,
   Pagination,
-} from '@windmill/react-ui'
+} from "@windmill/react-ui";
 
 import {
   doughnutOptions,
   lineOptions,
   doughnutLegends,
   lineLegends,
-} from '../utils/demo/chartsData'
-import GiftCardModal from '../components/Modals/GiftCardModal'
-import USDModal from '../components/Modals/USDModal'
+} from "../utils/demo/chartsData";
+import GiftCardModal from "../components/Modals/GiftCardModal";
+import USDModal from "../components/Modals/USDModal";
+import { api } from "../utils/queries";
 
 function Dashboard() {
-  const [page, setPage] = useState(1)
-  const [data, setData] = useState([])
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [lastPage, setLastPage] = useState(0);
+  const [loading, setLoading] = useState([]);
+  const [count, setCount] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [pendingAmount, setPendingAmount] = useState(0);
 
   // pagination setup
-  const resultsPerPage = 10
-  const totalResults = response.length
+  const resultsPerPage = 10;
+  const totalResults = response.length;
 
   // pagination change control
   function onPageChange(p) {
-    setPage(p)
+    setPage(p);
   }
 
   // on page change, load new sliced data
   // here you would make another server request for new data
+  // useEffect(() => {
+  //   setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
+  // }, [page]);
+
+  const aggregate = async () => {
+    setLoading(true)
+    await api
+      .get("/donations?pagination[pageSize]=" + count +'&fields[0]=amount&fields[1]=is_verified')
+      .then((res) => {
+        const getVerified = res.data.data.filter((res)=>res.attributes.is_verified)
+        const getUnVerified = res.data.data.filter((res)=>!res.attributes.is_verified)
+        const getAggregate = getVerified.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        const getUnverifiedAggregate = getUnVerified.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+       setAmount(getAggregate)
+       setPendingAmount(getUnverifiedAggregate)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+  };
+  const allDonations = async () => {
+    setLoading(true)
+    await api
+      .get("/donations")
+      .then((res) => {
+        setData(res.data.data)
+        setCount(res.data.meta.pagination.total)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+      ;
+  };
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+ 
+
+    allDonations();
+  }, []);
+
+  useEffect(() => {
+    if(count){
+      aggregate();
+    }
+  }, [count]);
 
   return (
     <>
@@ -58,7 +115,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total deposits" value="6389">
+        <InfoCard title="Total deposits" value={count}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -67,7 +124,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total withdawals" value="$ 46,760.89">
+        <InfoCard title="Total verified deposits" value={"$" + amount}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -76,7 +133,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total Pending deposit" value="376">
+        <InfoCard title="Total Pending deposit" value={'$' + pendingAmount}>
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -94,9 +151,9 @@ function Dashboard() {
           />
         </InfoCard>
       </div>
-      <div className='flex gap-3'>
-        <GiftCardModal/>
-        <USDModal/>
+      <div className="flex gap-3">
+        <GiftCardModal cb={()=> allDonations} />
+        <USDModal cb={allDonations} />
       </div>
       <TableContainer>
         <Table>
@@ -121,16 +178,18 @@ function Dashboard() {
                   </div>
                 </TableCell> */}
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">$ {user.attributes.amount}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <Badge type={user.status}>{user.attributes.is_verified}</Badge>
                 </TableCell>
                 <TableCell>
-                  <Badge type={'pending'}>{'pending'}</Badge>
+                  <Badge type={"pending"}>{user.attributes.method}</Badge>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{new Date(user.date).toLocaleDateString()}</span>
+                  <span className="text-sm">
+                    {new Date(user.attributes.publishedAt).toLocaleDateString()}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}
@@ -138,9 +197,9 @@ function Dashboard() {
         </Table>
         <TableFooter>
           <Pagination
-            className='bg-custom-red'
+            className="bg-custom-red"
             totalResults={totalResults}
-            resultsPerPage={resultsPerPage}
+            resultsPerPage={data?.length || 0}
             label="Table navigation"
             onChange={onPageChange}
           />
@@ -160,7 +219,7 @@ function Dashboard() {
         </ChartCard>
       </div> */}
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

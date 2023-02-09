@@ -8,6 +8,7 @@ import { SidebarProvider } from './context/SidebarContext'
 import ThemedSuspense from './components/ThemedSuspense'
 import { Windmill } from '@windmill/react-ui'
 import * as serviceWorker from './serviceWorker'
+import { AuthContextProvider } from './context/AuthProvider'
 
 // if (process.env.NODE_ENV !== 'production') {
 //   const axe = require('react-axe')
@@ -15,6 +16,7 @@ import * as serviceWorker from './serviceWorker'
 // }
 
 ReactDOM.render(
+ 
   <SidebarProvider>
     <Suspense fallback={<ThemedSuspense />}>
       <Windmill theme={myTheme} >

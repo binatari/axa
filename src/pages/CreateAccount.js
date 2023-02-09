@@ -7,6 +7,7 @@ import { GithubIcon, TwitterIcon } from "../icons";
 import { Input, Label, Button, Select } from "@windmill/react-ui";
 import { useState } from "react";
 import { api } from "../utils/queries";
+import { toast } from "react-toastify";
 var country_list = [
   "Afghanistan",
   "Albania",
@@ -221,7 +222,6 @@ function CreateAccount() {
     lastName: "",
     email: "",
     country: "",
-    gender: "male",
     password: "",
   });
 
@@ -236,13 +236,15 @@ function CreateAccount() {
   const initiateRegister = async () => {
     setLoading(true);
     await api
-      .post("/auth/register", userInfo)
+      .post("/auth/local/register", {...userInfo, username:userInfo.email})
       .then((res) => {
-        history.push("/verify");
-        localStorage.setItem('id', res.data._id)
+        history.push("/login");
+        localStorage.setItem('token', res.jwt)
         return res.data;
       })
-      .catch((err) => console.log(err))
+      .catch((err) =>{ 
+        toast('An error occured please try again')
+        console.log(err)})
       .finally(() => setLoading(false));
   };
 

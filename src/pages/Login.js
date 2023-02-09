@@ -6,11 +6,12 @@ import ImageDark from "../assets/img/login-office-dark.jpeg";
 import { GithubIcon, TwitterIcon } from "../icons";
 import { Label, Input, Button } from "@windmill/react-ui";
 import { api } from "../utils/queries";
+import { toast } from "react-toastify";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
   const history = useHistory();
@@ -23,17 +24,19 @@ function Login() {
   const initiateLogin = async () => {
     setLoading(true);
     await api
-      .post("/auth/login", userInfo)
+      .post("/auth/local", userInfo)
       .then((res) => {
-        localStorage.setItem('id', res.data._id)
-        if(res.data.verified){
+        localStorage.setItem('token', res.data.jwt)
+        if(res.data.user.confirmed){
           history.push("/app");
         return res.data;
         }
-        history.push("/verify");
+        
         return res.data;
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        toast('An error occured please try again')
+        console.log(err)})
       .finally(() => setLoading(false));
   };
 
@@ -65,7 +68,7 @@ function Login() {
                 <Input
                   className="mt-1"
                   type="email"
-                  name='email'
+                  name='identifier'
                   onChange={onChange}
                   placeholder="john@doe.com"
                 />
@@ -87,7 +90,7 @@ function Login() {
                 block
                 onClick={() => initiateLogin()}
               >
-                Log in
+                {!loading ? "Log in" : "Loading..."}
               </Button>
 
               <hr className="my-8" />

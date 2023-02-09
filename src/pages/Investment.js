@@ -28,10 +28,19 @@ import {
   doughnutLegends,
   lineLegends,
 } from '../utils/demo/chartsData'
+import { api } from '../utils/queries'
+import InvestModal from '../components/Modals/InvestModal'
 
 function Investment() {
   const [page, setPage] = useState(1)
   const [data, setData] = useState([])
+  const [lastPage, setLastPage] = useState(0);
+  const [loading, setLoading] = useState([]);
+  const [count, setCount] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [commercial, setCommercial] = useState(0);
+  const [residential, setResidential] = useState(0);
+  const [industrial, setIndustrial] = useState(0);
 
   // pagination setup
   const resultsPerPage = 10
@@ -44,9 +53,66 @@ function Investment() {
 
   // on page change, load new sliced data
   // here you would make another server request for new data
+
+  const aggregate = async () => {
+    setLoading(true)
+    await api
+      .get("/investments?pagination[pageSize]=" + count +'&fields[0]=amount&fields[1]=type')
+      .then((res) => {
+        const getIndustrial = res.data.data.filter((res)=>res.attributes.type == 'industrial')
+        const getCommercial = res.data.data.filter((res)=>res.attributes.type == 'commercial')
+        const getResidential = res.data.data.filter((res)=>res.attributes.type == 'residential')
+        const getAggregate = getIndustrial.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        const getCommercialAggregate = getCommercial.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        const getResidentialAggregate = getResidential.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+       setAmount(getAggregate + getCommercialAggregate + getResidentialAggregate)
+       setCommercial(getCommercialAggregate)
+       setResidential(getResidentialAggregate)
+       setIndustrial(getAggregate)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+  };
+  const allDonations = async () => {
+    setLoading(true)
+    await api
+      .get("/investments")
+      .then((res) => {
+        setData(res.data.data)
+        setCount(res.data.meta.pagination.total)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+  };
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage))
-  }, [page])
+ 
+
+    allDonations();
+  }, []);
+
+  useEffect(() => {
+    if(count){
+      aggregate();
+    }
+  }, [count]);
 
   return (
     <>
@@ -56,7 +122,7 @@ function Investment() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total balance" value="6389">
+        <InfoCard title="Total balance" value={'$'+amount}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -65,7 +131,7 @@ function Investment() {
           />
         </InfoCard>
 
-        <InfoCard title="Residential investments" value="$ 46,760.89">
+        <InfoCard title="Residential investments"  value={'$'+ residential}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -74,7 +140,7 @@ function Investment() {
           />
         </InfoCard>
 
-        <InfoCard title="Commercial investments" value="376">
+        <InfoCard title="Commercial investments"  value={'$'+commercial}>
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -83,7 +149,7 @@ function Investment() {
           />
         </InfoCard>
 
-        <InfoCard title="Industrial investments" value="35">
+        <InfoCard title="Industrial investments"  value={'$'+ industrial}>
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -92,14 +158,15 @@ function Investment() {
           />
         </InfoCard>
       </div>
-
+      <div className="flex gap-3">
+        <InvestModal cb={()=> allDonations()} />
+      </div>
       <TableContainer>
         <Table>
           <TableHeader>
             <tr>
               <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Method</TableCell>
+              <TableCell>Type</TableCell>
               <TableCell>Date</TableCell>
             </tr>
           </TableHeader>
@@ -116,16 +183,13 @@ function Investment() {
                   </div>
                 </TableCell> */}
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">$ {user.attributes.amount}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                <span className="text-sm"> {user.attributes.type}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={'pending'}>{'pending'}</Badge>
-                </TableCell>
-                <TableCell>
-                  <span className="text-sm">{new Date(user.date).toLocaleDateString()}</span>
+                  <span className="text-sm">{new Date(user.attributes.publishedAt).toLocaleDateString()}</span>
                 </TableCell>
               </TableRow>
             ))}

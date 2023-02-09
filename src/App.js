@@ -1,6 +1,10 @@
 import React, { lazy } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import AccessibleNavigationAnnouncer from './components/AccessibleNavigationAnnouncer'
+import RouteUnauthenticated from './components/UnauthRoute'
+import { AuthContextProvider } from './context/AuthProvider'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = lazy(() => import('./containers/Layout'))
 const Login = lazy(() => import('./pages/Login'))
@@ -12,6 +16,7 @@ function App() {
   return (
     <>
       <Router>
+       
         <AccessibleNavigationAnnouncer />
         <Switch>
           <Route path="/login" component={Login} />
@@ -20,10 +25,14 @@ function App() {
           <Route path="/verify" component={Verify} />
 
           {/* Place new routes over this */}
-          <Route path="/app" component={Layout} />
+          <AuthContextProvider>
+          <RouteUnauthenticated path="/app" component={Layout} />
+          </AuthContextProvider>
           {/* If you have an index page, you can remothis Redirect */}
           <Redirect exact from="/" to="/login" />
         </Switch>
+       
+        <ToastContainer/>
       </Router>
     </>
   )
