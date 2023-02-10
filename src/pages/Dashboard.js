@@ -152,7 +152,7 @@ function Dashboard() {
         </InfoCard>
       </div>
       <div className="flex gap-3">
-        <GiftCardModal cb={()=> allDonations} />
+        <GiftCardModal cb={allDonations} />
         <USDModal cb={allDonations} />
       </div>
       <TableContainer>

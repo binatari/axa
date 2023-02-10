@@ -11,6 +11,7 @@ const Login = lazy(() => import('./pages/Login'))
 const CreateAccount = lazy(() => import('./pages/CreateAccount'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
 const Verify = lazy(() => import('./pages/Verify'))
+const Home = lazy(() => import('./pages/Home'))
 
 function App() {
   return (
@@ -23,13 +24,14 @@ function App() {
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/verify" component={Verify} />
+          <Route path="/" component={Home} />
 
           {/* Place new routes over this */}
           <AuthContextProvider>
           <RouteUnauthenticated path="/app" component={Layout} />
           </AuthContextProvider>
           {/* If you have an index page, you can remothis Redirect */}
-          <Redirect exact from="/" to="/login" />
+          {/* <Redirect exact from="/" to="/login" /> */}
         </Switch>
        
         <ToastContainer/>
