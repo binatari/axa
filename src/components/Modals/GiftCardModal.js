@@ -11,6 +11,7 @@ const GiftCardModal = ({cb}) => {
     const [loading, setLoading] = useState(false);
     const [amount, setAmount] = useState(0);
     const [voucher_code, setVoucher] = useState('');
+    const [files, setFiles] = useState([]);
     function openModal() {
       setIsModalOpen(true)
     }
@@ -21,8 +22,19 @@ const GiftCardModal = ({cb}) => {
 
     const initiatePayment = async () => {
       setLoading(true);
+      const formData = new FormData();
+      formData.append(
+        "data",
+        JSON.stringify({ amount, receipt:[], method:'gift card', voucher_code})
+      );
+  
+      if (files.length) {
+        Array.from(files).forEach((file) => {
+          formData.append(`files.receipt`, file, file.name);
+        });
+      }
       await api
-        .post("/donations",  { data:{ amount, receipt:[], method:'gift card', voucher_code}})
+        .post("/donations",  formData)
         .then((res) => {
           toast('Desposit made')
           cb()
@@ -31,6 +43,10 @@ const GiftCardModal = ({cb}) => {
         })
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
+    };
+
+    const handleFile = (e) => {
+      setFiles(e.target.files);
     };
   return (
     <>
@@ -62,6 +78,19 @@ const GiftCardModal = ({cb}) => {
               placeholder="axasj-u3i23-sjai8-snc3s"
             />
           </Label>
+          
+          {/* <p className="text-lg my-4 font-semibold"> Upload images</p> */}
+          <p className=" mb-4 font-semibold">Upload payment proof if available</p>
+          <Button layout="outline">
+           
+            <input
+              type="file"
+              name="receipt"
+              className=""
+              onChange={handleFile}
+              multiple
+            />
+          </Button>
         </ModalBody>
         <ModalFooter>
           {/* I don't like this approach. Consider passing a prop to ModalFooter
