@@ -239,7 +239,7 @@ function CreateAccount() {
       .post("/auth/local/register", {...userInfo, username:userInfo.email})
       .then((res) => {
         history.push("/login");
-        localStorage.setItem('token', res.jwt)
+        sessionStorage.setItem('token', res.jwt)
         return res.data;
       })
       .catch((err) =>{ 

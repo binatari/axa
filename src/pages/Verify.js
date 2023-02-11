@@ -8,7 +8,7 @@ const [loading, setLoading] = useState(false)
 const [otp, setOtp] = useState('')
 const history = useHistory()
     const initiateVerification = async (e) =>{
-        const userId = localStorage.getItem('id')
+        const userId = sessionStorage.getItem('id')
         setLoading(true);
         await api
           .post("/auth/verifyEmail", {otp, userId })

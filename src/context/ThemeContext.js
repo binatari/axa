@@ -15,7 +15,7 @@ function usePrevious(theme) {
 
 /**
  * Gets user preferences from local storage
- * @param {string} key - localStorage key
+ * @param {string} key - sessionStorage key
  * @return {array} getter and setter for user preferred theme
  */
 function useStorageTheme(key) {
@@ -24,12 +24,12 @@ function useStorageTheme(key) {
 
   const [theme, setTheme] = useState(
     // use stored theme; fallback to user preference
-    localStorage.getItem(key) || userPreference
+    sessionStorage.getItem(key) || userPreference
   )
 
   // update stored theme
   useEffect(() => {
-    localStorage.setItem(key, theme)
+    sessionStorage.setItem(key, theme)
   }, [theme, key])
 
   return [theme, setTheme]

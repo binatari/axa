@@ -126,7 +126,7 @@ function Header() {
                 <span>Settings</span>
               </DropdownItem>
               <DropdownItem onClick={() => {
-                localStorage.removeItem('token')
+                sessionStorage.removeItem('token')
                 history.replace('/login')
               }}>
                 <OutlineLogoutIcon className="w-4 h-4 mr-3" aria-hidden="true" />

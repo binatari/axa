@@ -10,7 +10,7 @@ const {state} = useAuthProvider()
     return null;
   }
 
-  return <Route component={Component} path={path} />;
+  return <Component/>;
 };
 
 export default RouteUnauthenticated

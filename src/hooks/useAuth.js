@@ -11,9 +11,9 @@ const useAuth = () => {
 
 //  useEffect(()=>{
 //     setAuth(false)
-//     const token = localStorage.getItem("token");
+//     const token = sessionStorage.getItem("token");
 //     if(!token){
-//         localStorage.removeItem("token");
+//         sessionStorage.removeItem("token");
 //         history.replace('/login')  
 //         return
 //     }
@@ -25,9 +25,9 @@ const useAuth = () => {
     (response) => response,
     async function (error) {
       // console.log('ll')
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       if ( 401 === error.response.status) {
-          localStorage.removeItem("token");
+          sessionStorage.removeItem("token");
       }
     //   if (token && 401 !== error.response.status) {
     //     setAuth(true)

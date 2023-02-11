@@ -26,9 +26,9 @@ function Login() {
     await api
       .post("/auth/local", userInfo)
       .then((res) => {
-        localStorage.setItem('token', res.data.jwt)
+        sessionStorage.setItem('token', res.data.jwt)
         if(res.data.user.confirmed){
-          history.push("/app");
+          history.push("/app/dashboard");
         return res.data;
         }
         
