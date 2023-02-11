@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Modal from '../../utils/Modal';
+import React from 'react';
+// import Modal from '../../utils/Modal';
 
-import HeroImage from '../../images/hero-image.png';
+// import HeroImage from '../../images/hero-image.png';
 
 function HeroHome() {
 
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
+ 
 
   return (
     <section className="relative bg-red ">

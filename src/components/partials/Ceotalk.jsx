@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import TestimonialImage from '../images/testimonial.jpg';
 
 function Ceotalk() {
 
