@@ -43,6 +43,7 @@ function Dashboard() {
   const [address, setAddress] = useState('')
   const [pendingAmount, setPendingAmount] = useState(0);
   const [withdrew, setWithdrew] = useState(0);
+  const [withdrawCount, setwithdrawCount] = useState(0);
 
   // pagination setup
   const resultsPerPage = 10;
@@ -112,6 +113,7 @@ function Dashboard() {
         },
         0);
         setWithdrew(getAggregate)
+        setwithdrawCount(res.data.meta.pagination.total)
       })
       .catch((err) => console.log(err))
       .finally(()=>setLoading(false))
@@ -182,7 +184,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total Pending withdrawals" value="35">
+        <InfoCard title="No of withdrawals" value={withdrawCount}>
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
@@ -236,7 +238,7 @@ function Dashboard() {
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
+        {/* <TableFooter>
           <Pagination
             className="bg-custom-red"
             totalResults={totalResults}
@@ -244,7 +246,7 @@ function Dashboard() {
             label="Table navigation"
             onChange={onPageChange}
           />
-        </TableFooter>
+        </TableFooter> */}
       </TableContainer>
 
       {/* <PageTitle>Charts</PageTitle> */}

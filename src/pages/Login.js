@@ -36,7 +36,7 @@ function Login() {
         return res.data;
       })
       .catch((err) => {
-        toast('An error occured please try again')
+        toast( err?.response?.data?.error?.message || 'An error occured please try again')
         console.log(err)})
       .finally(() => setLoading(false));
   };

@@ -218,11 +218,12 @@ var country_list = [
 function CreateAccount() {
   const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     country: "",
     password: "",
+    confirm_password:""
   });
 
   const history = useHistory();
@@ -243,10 +244,13 @@ function CreateAccount() {
         return res.data;
       })
       .catch((err) =>{ 
-        toast('An error occured please try again')
-        console.log(err)})
+        
+        toast( err?.response?.data?.error?.message || 'An error occured please try again')
+        console.log(err?.response?.data?.error?.message)})
       .finally(() => setLoading(false));
   };
+
+  const allTruthy = Object.values(userInfo).every(value => value);
 
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -276,7 +280,7 @@ function CreateAccount() {
                 <Input
                   className="mt-1"
                   onChange={onChange}
-                  name="firstName"
+                  name="first_name"
                   type="text"
                   placeholder="John"
                 />
@@ -286,7 +290,7 @@ function CreateAccount() {
                 <Input
                   className="mt-1"
                   onChange={onChange}
-                  name="lastName"
+                  name="last_name"
                   type="text"
                   placeholder="Doe"
                 />
@@ -323,22 +327,28 @@ function CreateAccount() {
                 <span>Confirm password</span>
                 <Input
                   className="mt-1"
+                  onChange={onChange}
                   placeholder="***************"
                   type="password"
+                  name='confirm_password'
                 />
               </Label>
-
+{/* 
               <Label className="mt-6" check>
                 <Input type="checkbox" />
                 <span className="ml-2">
                   I agree to the{" "}
                   <span className="underline">privacy policy</span>
                 </span>
-              </Label>
+              </Label> */}
 
-              <Button block className="mt-4" onClick={initiateRegister}>
+              <Button block disabled={!allTruthy || userInfo.password !== userInfo.confirm_password} className="mt-4" onClick={initiateRegister}>
                 {loading ? "Loading..." : "Create account"}
               </Button>
+              {
+                 userInfo.password !== userInfo.confirm_password && userInfo.password && userInfo.confirm_password ?   <p className='text-sm text-center text-red-600'>Please ensure passwords match</p> : null
+              }
+            
 
               <hr className="my-8" />
 

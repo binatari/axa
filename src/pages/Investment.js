@@ -197,7 +197,7 @@ function Investment() {
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
+        {/* <TableFooter>
           <Pagination
             className='bg-custom-red'
             totalResults={totalResults}
@@ -205,7 +205,7 @@ function Investment() {
             label="Table navigation"
             onChange={onPageChange}
           />
-        </TableFooter>
+        </TableFooter> */}
       </TableContainer>
 
       {/* <PageTitle>Charts</PageTitle> */}
