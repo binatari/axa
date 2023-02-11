@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Header from '../partials/Header';
-import HeroHome from '../partials/HeroHome';
-import FeaturesHome from '../partials/Features';
-import FeaturesBlocks from '../partials/FeaturesBlocks';
-import Testimonials from '../partials/Testimonials';
-import Newsletter from '../partials/Newsletter';
-import Footer from '../partials/Footer';
+import Header from '../components/partials/Header';
+import HeroHome from '../components/partials/HeroHome';
+import FeaturesHome from '../components/partials/Features';
+import FeaturesBlocks from '../components/partials/FeaturesBlocks';
+import Testimonials from '../components/partials/Testimonials';
+import Newsletter from '../components/partials/Newsletter';
+import Footer from '../components/partials/Footer';
 
 function Home() {
   return (
