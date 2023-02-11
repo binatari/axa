@@ -15,8 +15,8 @@ function Newsletter() {
                 <defs>
                   <radialGradient cx="35.542%" cy="34.553%" fx="35.542%" fy="34.553%" r="96.031%" id="ni-a">
                     <stop stopColor="#DFDFDF" offset="0%" />
-                    <stop stopColor="#4C4C4C" offset="44.317%" />
-                    <stop stopColor="#333" offset="100%" />
+                    <stop stopColor="#5b0e0e" offset="44.317%" />
+                    <stop stopColor="#5b0e0e" offset="100%" />
                   </radialGradient>
                 </defs>
                 <g fill="none" fillRule="evenodd">
@@ -39,8 +39,8 @@ function Newsletter() {
 
               {/* CTA content */}
               <div className="text-center lg:text-left lg:max-w-xl">
-                <h3 className="h3 text-white mb-2">Powering your business</h3>
-                <p className="text-gray-300 text-lg mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit nemo expedita voluptas culpa sapiente.</p>
+                
+                <p className="text-gray-300 text-lg mb-6">Want to Join Exa RealState</p>
 
                 {/* CTA form */}
                 <form className="w-full lg:w-auto">
@@ -50,7 +50,7 @@ function Newsletter() {
                   </div>
                   {/* Success message */}
                   {/* <p className="text-sm text-gray-400 mt-3">Thanks for subscribing!</p> */}
-                  <p className="text-sm text-gray-400 mt-3">7 days free trial. No credit card required.</p>
+                  {/* <p className="text-sm text-gray-400 mt-3">7 days free trial. No credit card required.</p> */}
                 </form>
               </div>
 

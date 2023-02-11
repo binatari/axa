@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { Link } from 'react-router-dom';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
+
 
 function Header() {
 
@@ -14,8 +17,19 @@ function Header() {
     return () => window.removeEventListener('scroll', scrollHandler);
   }, [top]);  
 
+
+  const [openNav, setOpenNav] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
+ 
+
   return (
-    <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && 'bg-white backdrop-blur-sm shadow-lg'}`}>
+    <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && 'bg-white  backdrop-blur-sm shadow-lg'}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
 
@@ -23,36 +37,74 @@ function Header() {
           <div className="flex-shrink-0 mr-4">
             {/* Logo */}
             <Link to="/" className="block" aria-label="Cruip">
-              <svg className="w-8 h-8" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="header-logo">
-                    <stop stopColor="#4FD1C5" offset="0%" />
-                    <stop stopColor="#81E6D9" offset="25.871%" />
-                    <stop stopColor="#338CF5" offset="100%" />
-                  </radialGradient>
-                </defs>
-                <rect width="32" height="32" rx="16" fill="url(#header-logo)" fillRule="nonzero" />
-              </svg>
-            </Link>
+            <h1 className='text-cool-gray-300 hover:text-black px-5' >EXA_REAL_ESTATE</h1>           
+           </Link>
           </div>
 
-          {/* Site navigation */}
-          <nav className="flex flex-grow">
-            <ul className="flex flex-grow justify-end flex-wrap items-center">
-              <li>
-                <Link to="/login" className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Sign in</Link>
+
+          <nav>
+               {/* Site Route */}
+               <ul className='hidden lg:flex items-center  lg:flex-wrap ml-32 '>
+            <li>
+            <a href="" className=" text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">ABOUT</a>
               </li>
+            
               <li>
-                <a href='#' className="btn-sm flex items-center text-gray-200  ml-3">
-                  <span className='text-gray-600 hover:text-gray-900'>Sign up</span>
-                  <svg className="w-3 h-3 fill-current text-gray-400 flex-shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fillRule="nonzero" />
-                  </svg>                  
-                </a>
+                <a href="" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">CEO_TALK </a>
+              </li>
+
+              <li>
+                <a href="" className="text-cool-gray-300  hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> REVIEWS</a>
+              </li>
+
+              <li>
+                <a href="" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> COACHING_TIPS</a>
               </li>
             </ul>
 
+          {/* Site navigation */}
+          <nav className=" hidden  lg:flex lg:flex-grow">
+            <ul className="flex flex-grow justify-end flex-wrap items-center">
+              <li>
+                <Link to="/login" className="font-medium bg-green rounded-md text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Sign in</Link>
+              </li>
+
+              <li>
+                <a href="https://t.me/+KJXgmnTrtyc0OTRk" className="font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Telegram</a>
+              </li>
+            </ul>
+   
           </nav>
+
+
+          <button
+          size="sm"
+          color="black"
+          className="ml-auto text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-cool-gray-300" />
+          ) : (
+            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-cool-gray-300" />
+          )}
+        </button>
+
+        <nav
+        className="rounded-xl bg-white px-4 pt-2 pb-4 text-blue-gray-900"
+        open={openNav}
+      >
+      </nav>
+
+          </nav>
+     
+
+ 
+
+
+
+     
+
 
         </div>
       </div>
@@ -61,3 +113,18 @@ function Header() {
 }
 
 export default Header;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
