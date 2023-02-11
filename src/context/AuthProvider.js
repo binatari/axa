@@ -27,7 +27,6 @@ export function AuthContextProvider({ children }) {
         history.replace('/login')  
         return
     }
-    console.log(token)
     setState(true)
 
  }, [path])

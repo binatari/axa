@@ -1,7 +1,7 @@
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
     Input, Select } from '@windmill/react-ui'
   
-  import React from 'react'
+  import React, { useEffect } from 'react'
   import { useState } from 'react'
   import { api } from '../../utils/queries'
   import { toast } from 'react-toastify'
@@ -14,7 +14,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
   const InvestModal = ({cb}) => {
       const [isModalOpen, setIsModalOpen] = useState(false)
       const [loading, setLoading] = useState(false);
+      const [investLoading, setInvestLoading] = useState(false);
       const [amount, setAmount] = useState(0);
+      const [bal, setBal] = useState(0);
       const [type, setType] = useState("");
       function openModal() {
         setIsModalOpen(true)
@@ -23,6 +25,30 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
       function closeModal() {
         setIsModalOpen(false)
       }
+
+      const aggregate = async () => {
+        setLoading(true)
+        await api
+          .get("/donations?pagination[pageSize]=1000" +'&fields[0]=amount&fields[1]=is_verified')
+          .then((res) => {
+            const getVerified = res.data.data.filter((res)=>res.attributes.is_verified)
+            const getUnVerified = res.data.data.filter((res)=>!res.attributes.is_verified)
+            const getAggregate = getVerified.reduce(function (
+              accumulator,
+              curValue
+            ) {
+              return accumulator + Number(curValue.attributes.amount);
+            },
+            0);
+           setBal(getAggregate)
+          })
+          .catch((err) => console.log(err))
+          .finally(()=>setLoading(false))
+      };
+
+      useEffect(()=>{
+        aggregate()
+      }, [isModalOpen])
   
       const initiatePayment = async () => {
         setLoading(true);
@@ -37,6 +63,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
           .catch((err) => console.log(err))
           .finally(() => setLoading(false));
       };
+
     return (
       <>
         <div>
@@ -72,23 +99,36 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
              * Or, maybe find some way to pass something like size="large md:regular"
              * to Button
              */}
-            <div className="hidden sm:block">
+             <div>
+              <div className='flex justify-end  gap-4 w-full' >
+              <div className="hidden sm:block">
               <Button layout="outline" onClick={closeModal}>
                 Cancel
               </Button>
             </div>
             <div className="hidden sm:block">
-              <Button onClick={initiatePayment}>{loading? 'Loading' : 'Confirm payment'}</Button>
+              <Button disabled={!amount || amount > bal || !type} onClick={initiatePayment}>{loading? 'Loading' : 'Confirm payment'}</Button>
             </div>
+              </div>
+              {
+                amount > bal ?  <p className='text-sm text-red-600 text-center'>Amount to be invested is greater than your current balance, please top up or reduce amount to be invested</p> : null
+              }
+             
+             </div>
+           
+         
             <div className="block w-full sm:hidden">
               <Button block size="large" layout="outline" onClick={closeModal}>
                 Cancel
               </Button>
             </div>
             <div className="block w-full sm:hidden">
-              <Button onClick={initiatePayment} block size="large">
-              {loading? 'Loading' : 'Confirm payment'}
+              <Button disabled={!amount || amount > bal || !type} onClick={initiatePayment} block size="large">
+              {loading? 'Loading' : 'Confirm Investment'}
               </Button>
+              {
+                amount > bal ?  <p className='text-sm text-center text-red-600'>Amount to be invested is greater than your current balance, please top up or reduce amount to be invested</p> : null
+              }
             </div>
           </ModalFooter>
         </Modal>

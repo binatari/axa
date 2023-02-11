@@ -10,6 +10,7 @@ const GiftCardModal = ({cb}) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [loading, setLoading] = useState(false);
     const [amount, setAmount] = useState(0);
+    const [voucher_code, setVoucher] = useState('');
     function openModal() {
       setIsModalOpen(true)
     }
@@ -21,7 +22,7 @@ const GiftCardModal = ({cb}) => {
     const initiatePayment = async () => {
       setLoading(true);
       await api
-        .post("/donations", {amount, receipt:[], method:'gift card'})
+        .post("/donations",  { data:{ amount, receipt:[], method:'gift card', voucher_code}})
         .then((res) => {
           toast('Desposit made')
           cb()
@@ -49,6 +50,16 @@ const GiftCardModal = ({cb}) => {
               onChange={(e)=>setAmount(e.target.value)}
               name="amount"
               placeholder="$100"
+            />
+          </Label>
+          <Label className="mt-4">
+            <span>Voucher code</span>
+            <Input
+              className="mt-1"
+              type="text"
+              onChange={(e)=>setVoucher(e.target.value)}
+              name="voucher_code"
+              placeholder="axasj-u3i23-sjai8-snc3s"
             />
           </Label>
         </ModalBody>

@@ -30,6 +30,7 @@ import {
 } from '../utils/demo/chartsData'
 import { api } from '../utils/queries'
 import InvestModal from '../components/Modals/InvestModal'
+import Note from '../components/Note'
 
 function Investment() {
   const [page, setPage] = useState(1)
@@ -122,7 +123,7 @@ function Investment() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total balance" value={'$'+amount}>
+        <InfoCard title="Total Investment balance" value={'$'+amount}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -158,6 +159,7 @@ function Investment() {
           />
         </InfoCard>
       </div>
+      <Note/>
       <div className="flex gap-3">
         <InvestModal cb={()=> allDonations()} />
       </div>

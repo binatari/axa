@@ -23,6 +23,7 @@ function Login() {
   };
   const initiateLogin = async () => {
     setLoading(true);
+    localStorage.removeItem('token')
     await api
       .post("/auth/local", userInfo)
       .then((res) => {
@@ -95,14 +96,14 @@ function Login() {
 
               <hr className="my-8" />
 
-              <Button block layout="outline">
+              {/* <Button block layout="outline">
                 <GithubIcon className="w-4 h-4 mr-2" aria-hidden="true" />
                 Github
               </Button>
               <Button className="mt-4" block layout="outline">
                 <TwitterIcon className="w-4 h-4 mr-2" aria-hidden="true" />
                 Twitter
-              </Button>
+              </Button> */}
 
               <p className="mt-4">
                 <Link

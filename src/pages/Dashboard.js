@@ -31,6 +31,7 @@ import {
 import GiftCardModal from "../components/Modals/GiftCardModal";
 import USDModal from "../components/Modals/USDModal";
 import { api } from "../utils/queries";
+import WithDrawModal from "../components/Modals/WithDrawModal";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -39,7 +40,9 @@ function Dashboard() {
   const [loading, setLoading] = useState([]);
   const [count, setCount] = useState(0);
   const [amount, setAmount] = useState(0);
+  const [address, setAddress] = useState('')
   const [pendingAmount, setPendingAmount] = useState(0);
+  const [withdrew, setWithdrew] = useState(0);
 
   // pagination setup
   const resultsPerPage = 10;
@@ -95,11 +98,48 @@ function Dashboard() {
       .finally(()=>setLoading(false))
       ;
   };
-  useEffect(() => {
- 
 
+  const withDrawals = async () => {
+    setLoading(true)
+    await api
+      .get("/withdrawals")
+      .then((res) => {
+        const getAggregate = res.data.data.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        setWithdrew(getAggregate)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+      ;
+  };
+
+
+  const getAddress = async () => {
+ 
+    await api
+      .get("/address")
+      .then((res) => {
+        setAddress(res.data.data.attributes.address)
+      })
+      .catch((err) => console.log(err))
+      ;
+  };
+
+  useEffect(() => {
+    getAddress()
     allDonations();
+    withDrawals()
   }, []);
+
+  const getInfo = () =>{
+    allDonations()
+    withDrawals()
+  }
 
   useEffect(() => {
     if(count){
@@ -124,7 +164,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total verified deposits" value={"$" + amount}>
+        <InfoCard title="Balance" value={!amount ? '$0' : "$" + (amount - withdrew)}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -152,8 +192,9 @@ function Dashboard() {
         </InfoCard>
       </div>
       <div className="flex gap-3">
-        <GiftCardModal cb={allDonations} />
-        <USDModal cb={allDonations} />
+        <GiftCardModal cb={getInfo} />
+        <USDModal address={address} cb={getInfo} />
+        <WithDrawModal totalWithdraw={amount - withdrew} cb={getInfo} />
       </div>
       <TableContainer>
         <Table>

@@ -11,6 +11,8 @@ const Tables = lazy(() => import('../pages/Tables'))
 const Page404 = lazy(() => import('../pages/404'))
 const Blank = lazy(() => import('../pages/Blank'))
 const Investment = lazy(() => import('../pages/Investment'))
+const Guide = lazy(() => import('../pages/Guide'))
+
 
 /**
  * ⚠ These are internal routes!
@@ -41,7 +43,7 @@ const routes = [
   },
   {
     path: '/guide',
-    component: Investment,
+    component: Guide,
   },
   {
     path: '/charts',
