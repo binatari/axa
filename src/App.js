@@ -10,7 +10,7 @@ import RouteUnauthenticated from "./components/UnauthRoute";
 import { AuthContextProvider } from "./context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import './css/bg.css';
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 const CreateAccount = lazy(() => import("./pages/CreateAccount"));
