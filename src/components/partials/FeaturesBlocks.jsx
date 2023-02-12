@@ -4,7 +4,7 @@ import {StarIcon} from "@heroicons/react/24/solid";
 function FeaturesBlocks() {
   const [show, setShow] = useState(false)
   return (
-    <section className="relative">
+    <section id='reviews'  className="relative">
 
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-900 pointer-events-none" aria-hidden="true"></div>

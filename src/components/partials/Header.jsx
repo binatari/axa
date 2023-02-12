@@ -42,23 +42,23 @@ function Header() {
           </div>
 
 
-          <nav>
+          
                {/* Site Route */}
                <ul className='hidden lg:flex items-center  lg:flex-wrap ml-32 '>
             <li>
-            <a href="" className=" text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">ABOUT</a>
+            <a href="#About" className=" text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">ABOUT</a>
               </li>
             
               <li>
-                <a href="" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">CEO_TALK </a>
+                <a href="#ceotalk" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out">CEO_TALK </a>
               </li>
 
               <li>
-                <a href="" className="text-cool-gray-300  hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> REVIEWS</a>
+                <a href="#reviews" className="text-cool-gray-300  hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> REVIEWS</a>
               </li>
 
               <li>
-                <a href="" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> COACHING_TIPS</a>
+                <a href="#coachingtips" className="text-cool-gray-300 hover:text-black px-5 py-3 flex items-center transition duration-150 ease-in-out"> COACHING_TIPS</a>
               </li>
             </ul>
 
@@ -77,7 +77,7 @@ function Header() {
           </nav>
 
 
-          <button
+          {/* <button
           size="sm"
           color="black"
           className="ml-auto text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -88,15 +88,15 @@ function Header() {
           ) : (
             <Bars3Icon strokeWidth={2} className="h-6 w-6 text-cool-gray-300" />
           )}
-        </button>
+        </button> */}
 
-        <nav
+        {/* <nav
         className="rounded-xl bg-white px-4 pt-2 pb-4 text-blue-gray-900"
         open={openNav}
       >
-      </nav>
+      </nav> */}
 
-          </nav>
+          {/* </nav> */}
      
 
  

@@ -11,12 +11,15 @@ import { AuthContextProvider } from "./context/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './css/bg.css';
+import ScrollUp from './components/widgets/layout/ScrollUp';
+
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
 const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Verify = lazy(() => import("./pages/Verify"));
 const Home = lazy(() => import("./pages/Home"));
+
 // const Guide = lazy(() => import("./pages/Guide"));
 
 function App() {
@@ -39,6 +42,7 @@ function App() {
 
         <ToastContainer />
       </Router>
+      <ScrollUp/>
     </>
   );
 }
