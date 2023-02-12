@@ -103,12 +103,13 @@ function Header() {
           {/* Site navigation */}
           <nav>
             <ul className="items-center text-center">
-              <li className='mb-4 text-center'>
-                <Link to="/login" className="justify-center text-center  font-medium rounded-md ml-3 text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center  bg-green ">Sign in</Link>
+
+            <li>
+                <a href="https://t.me/+KJXgmnTrtyc0OTRk" className="justify-center text-center  font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center ">Join Telegram</a>
               </li>
 
-              <li>
-                <a href="https://t.me/+KJXgmnTrtyc0OTRk" className="justify-center text-center  font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center ">Telegram</a>
+              <li className='mb-4 text-center'>
+                <Link to="/login" className="justify-center text-center  font-medium rounded-md ml-3 text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center  bg-green ">Login</Link>
               </li>
             </ul>
    
