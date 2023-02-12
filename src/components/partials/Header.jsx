@@ -88,15 +88,15 @@ function Header() {
               </li>
             
               <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
-                <a href="#ceotalk" className="text-black gap-2 transition duration-150 ease-in-out">CEO_TALK </a>
+                <a href="#ceotalk" className="text-black gap-2 transition duration-150 ease-in-out">Ceo_talk </a>
               </li>
 
               <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
-                <a href="#reviews" className="text-black gap-2 items-center transition duration-150 ease-in-out"> REVIEWS</a>
+                <a href="#reviews" className="text-black gap-2 items-center transition duration-150 ease-in-out"> Reviews</a>
               </li>
 
               <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
-                <a href="#coachingtips" className="text-black gap-2 items-center transition duration-150 ease-in-out"> COACHING_TIPS</a>
+                <a href="#coachingtips" className="text-black gap-2 items-center transition duration-150 ease-in-out"> Coaching_tips</a>
               </li>
             </ul>
 
