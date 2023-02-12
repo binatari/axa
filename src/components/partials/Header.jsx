@@ -76,6 +76,21 @@ function Header() {
    
           </nav>
 
+          <button
+          size="sm"
+          color="black"
+          className="ml-auto text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+        >
+          {openNav ? (
+            <XMarkIcon onClick={ () => setOpenNav(false)} className="h-6 w-6 text-cool-gray-300" />
+          ) : (
+            <Bars3Icon onClick={ (e) => {
+              e.stopPropagation();
+              setOpenNav(true);
+            }} className="h-6 w-6 text-cool-gray-300" />
+          )} 
+        </button>
+
 
           {/* <button
           size="sm"
