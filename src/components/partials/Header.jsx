@@ -19,18 +19,9 @@ function Header() {
   }, [top]);  
 
 
-  const [openNav, setOpenNav] = useState(false);
+ 
   const [show, setShow] = useState(false);
   
-
-  useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
-  }, []);
- 
-
   return (
     <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && 'bg-white  backdrop-blur-sm shadow-lg'}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
