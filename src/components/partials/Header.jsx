@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 
 
+
 function Header() {
 
   const [top, setTop] = useState(true);
@@ -19,6 +20,8 @@ function Header() {
 
 
   const [openNav, setOpenNav] = useState(false);
+  const [show, setShow] = useState(false);
+  
 
   useEffect(() => {
     window.addEventListener(
@@ -40,9 +43,7 @@ function Header() {
             <h1 className='text-cool-gray-300 hover:text-black px-5' >EXA_REAL_ESTATE</h1>           
            </Link>
           </div>
-
-
-          
+    
                {/* Site Route */}
                <ul className='hidden lg:flex items-center  lg:flex-wrap ml-32 '>
             <li>
@@ -76,49 +77,54 @@ function Header() {
    
           </nav>
 
-          <button
-          size="sm"
-          color="black"
-          className="ml-auto text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-        >
-          {openNav ? (
-            <XMarkIcon onClick={ () => setOpenNav(false)} className="h-6 w-6 text-cool-gray-300" />
+        <button onClick={() => setShow(!show)} 
+              className="ml-auto text-inherit bg-black text-center text-blue-gray-50   focus:bg-black active:bg-black lg:hidden px-2 py-2 rounded-lg"
+           > 
+             {show ? (
+            <XMarkIcon strokeWidth={2} className="h-6 w-6  text-cool-gray-50" />
           ) : (
-            <Bars3Icon onClick={ (e) => {
-              e.stopPropagation();
-              setOpenNav(true);
-            }} className="h-6 w-6 text-cool-gray-300" />
-          )} 
-        </button>
-
-
-          {/* <button
-          size="sm"
-          color="black"
-          className="ml-auto text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6 text-cool-gray-300" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-cool-gray-300" />
+            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-cool-gray-50" />
           )}
-        </button> */}
+           </button>
 
-        {/* <nav
-        className="rounded-xl bg-white px-4 pt-2 pb-4 text-blue-gray-900"
-        open={openNav}
-      >
-      </nav> */}
+            {
+              show ? <div className=" w-5/6 absolute  mt-64 -mb-32 ml-10 items-center p-6 bg-white rounded shadow-xl">
 
-          {/* </nav> */}
-     
+                         {/* Site Route */}
+               <ul className='ml-2 py-4 justify-center'>
+            <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
+            <a href="#About" className=" text-black gap-4  transition duration-150 ease-in-out">ABOUT</a>
+              </li>
+            
+              <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
+                <a href="#ceotalk" className="text-black gap-2 transition duration-150 ease-in-out">CEO_TALK </a>
+              </li>
 
- 
+              <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
+                <a href="#reviews" className="text-black gap-2 items-center transition duration-150 ease-in-out"> REVIEWS</a>
+              </li>
 
+              <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
+                <a href="#coachingtips" className="text-black gap-2 items-center transition duration-150 ease-in-out"> COACHING_TIPS</a>
+              </li>
+            </ul>
 
+          {/* Site navigation */}
+          <nav>
+            <ul className="items-center text-center">
+              <li className='mb-4 text-center'>
+                <Link to="/login" className="justify-center text-center  font-medium rounded-md ml-3 text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center  bg-green ">Sign in</Link>
+              </li>
 
-     
+              <li>
+                <a href="https://t.me/+KJXgmnTrtyc0OTRk" className="justify-center text-center  font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center ">Telegram</a>
+              </li>
+            </ul>
+   
+          </nav>
+             
+            </div>:null
+               }
 
 
         </div>
