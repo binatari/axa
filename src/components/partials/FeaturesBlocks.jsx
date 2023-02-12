@@ -74,8 +74,40 @@ function FeaturesBlocks() {
                 <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
                 </div>
                       
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Fast Prototyping</h4>
-              <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Lucas Marshall</h4>
+              <p className="text-gray-600 text-center">Exa RealEstate have been Profitable to me.</p>
+            </div>:null
+               }
+
+
+              {
+              show ?     <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+                  <div className="grid grid-cols-5 gap-3 pb-4 mx-auto md:grid-cols-5 xl:grid-cols-5">
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow"className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                </div>
+                      
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Ditte M. Nielsen</h4>
+              <p className="text-gray-600 text-center">Jeg elsker denne app, fordi den er sikker legitim.</p>
+            </div>:null
+               }
+
+
+                     {
+              show ?     <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+                  <div className="grid grid-cols-5 gap-3 pb-4 mx-auto md:grid-cols-5 xl:grid-cols-5">
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow"className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                </div>
+                      
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Anne Huard</h4>
+              <p className="text-gray-600 text-center">L'application fonctionne tres bien pour moi.</p>
             </div>:null
                }
 
