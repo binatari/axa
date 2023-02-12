@@ -84,7 +84,7 @@ function Header() {
                          {/* Site Route */}
                <ul className='ml-2 py-4 justify-center'>
             <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
-            <a href="#About" className=" text-black gap-4  transition duration-150 ease-in-out">ABOUT</a>
+            <a href="#About" className=" text-black gap-4  transition duration-150 ease-in-out">About Exa Realestate</a>
               </li>
             
               <li className='mb-2 border-black border-solid border-b-2 items-center justify-center text-center '>
