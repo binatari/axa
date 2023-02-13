@@ -227,7 +227,7 @@ function Dashboard() {
                   <span className="text-sm">$ {user.attributes.amount}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.attributes.is_verified}</Badge>
+                  <Badge type={user.status}>{user.attributes.is_verified ? 'verified' : 'pending'}</Badge>
                 </TableCell>
                 <TableCell>
                   <Badge type={"pending"}>{user.attributes.method}</Badge>

@@ -34,6 +34,18 @@ const PaymentModal = ({ cb, address, network }) => {
   }
 
   const onChange = (e) => {
+    if (e.target.name == "method") {
+      setPaymentInfo({
+        ...{
+          amount: 0,
+          is_verified: false,
+          voucher_code: "",
+          voucher_type: "",
+        },
+        [e.target.name]: e.target.value,
+      });
+      return;
+    }
     setPaymentInfo({
       ...paymentInfo,
       [e.target.name]: e.target.value,
@@ -65,6 +77,7 @@ const PaymentModal = ({ cb, address, network }) => {
   const handleFile = (e) => {
     setFiles(e.target.files);
   };
+
   return (
     <div>
       <div>
@@ -90,7 +103,7 @@ const PaymentModal = ({ cb, address, network }) => {
             >
               <option></option>
               <option>usd</option>
-              <option>gift card </option>
+              <option>gift card</option>
             </Select>
           </Label>
           {paymentInfo.method ? (
@@ -103,58 +116,97 @@ const PaymentModal = ({ cb, address, network }) => {
                   <p className=" text-lg mt-2 font-bold">{network}</p>
                 </>
               ) : null}
-              <Label className="mt-4">
-                <span>Amount</span>
-                <Input
-                  className="mt-1"
-                  type="number"
-                  onChange={onChange}
-                  name="amount"
-                  placeholder="$100"
-                />
-              </Label>
               {paymentInfo.method == "gift card" ? (
                 <>
-                  <Label className="mt-4">
-                    <span>Voucher type</span>
-                    <Select
-                      placeholder="Select gift card type"
-                      onChange={onChange}
-                      name="voucher_type"
-                      className="mt-1 border rounded-sm"
+                  <p className=" text-sm mt-4 text-center">
+                    Please select your gift card type by clicking one of the
+                    cards below
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 mt-4 ">
+                    <div
+                      className={`flex justify-center max-h-20 p-4 cursor-pointer 
+                        ${
+                          paymentInfo.voucher_type == "play store"
+                            ? "bg-red"
+                            : ""
+                        }`}
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        setPaymentInfo({
+                          ...paymentInfo,
+                          voucher_type: "play store",
+                        })
+                      }
                     >
-                      <option></option>
-                      <option>Steam</option>
-                      <option>American Express</option>
-                      <option>Google Play</option>
-                    </Select>
-                  </Label>
-                  <Label className="mt-4">
-                    <span>Voucher code</span>
-                    <Input
-                      className="mt-1"
-                      type="text"
-                      onChange={onChange}
-                      name="voucher_code"
-                      placeholder="axasj-u3i23-sjai8-snc3s"
-                    />
-                  </Label>
+                      <img
+                        src="/img/play-store.jpg"
+                        className="h-full rounded-sm"
+                      />
+                    </div>
+                    <div
+                      className={`flex justify-center max-h-20 p-4 cursor-pointer 
+                    ${paymentInfo.voucher_type == "steam" ? "bg-red" : ""}`}
+                      onClick={() =>
+                        setPaymentInfo({
+                          ...paymentInfo,
+                          voucher_type: "steam",
+                        })
+                      }
+                    >
+                      <img src="/img/steam.png" className="h-full rounded-sm" />
+                    </div>
+                    <div
+                      className={`flex justify-center max-h-20 p-4 cursor-pointer 
+                    ${
+                      paymentInfo.voucher_type == "american express"
+                        ? "bg-red"
+                        : ""
+                    }`}
+                      onClick={() =>
+                        setPaymentInfo({
+                          ...paymentInfo,
+                          voucher_type: "american express",
+                        })
+                      }
+                    >
+                      <img
+                        src="/img/express.png"
+                        className="h-full rounded-sm"
+                      />
+                    </div>
+                  </div>
                 </>
               ) : null}
 
-              {/* <p className="text-lg my-4 font-semibold"> Upload images</p> */}
-              <p className=" my-4 font-semibold">
-                Upload payment proof if available
-              </p>
-              <Button layout="outline">
-                <input
-                  type="file"
-                  name="receipt"
-                  className=""
-                  onChange={handleFile}
-                  multiple
-                />
-              </Button>
+              {(paymentInfo.method == "gift card" &&
+                paymentInfo.voucher_type) ||
+              paymentInfo.method == "usd" ? (
+                <>
+                  <Label className="mt-4">
+                    <span>Amount</span>
+                    <Input
+                      className="mt-1"
+                      type="number"
+                      onChange={onChange}
+                      name="amount"
+                      placeholder="$100"
+                    />
+                  </Label>
+                  {/* <p className="text-lg my-4 font-semibold"> Upload images</p> */}
+                  <p className=" my-4 font-semibold">
+                    Upload payment proof if available
+                  </p>
+                  <Button layout="outline">
+                    <input
+                      type="file"
+                      name="receipt"
+                      className=""
+                      onChange={handleFile}
+                      multiple
+                    />
+                  </Button>
+                </>
+              ) : null}
             </>
           ) : null}
         </ModalBody>
