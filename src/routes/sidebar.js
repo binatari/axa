@@ -21,11 +21,11 @@ const routes = [
     name: 'Guide',
     path: '/app/guide',
   },
-  // {
-  //   path: '/app/forms',
-  //   icon: 'FormsIcon',
-  //   name: 'Forms',
-  // },
+  {
+    path: '/app/settings',
+    icon: 'FormsIcon',
+    name: 'Settings',
+  },
   // {
   //   path: '/app/cards',
   //   icon: 'CardsIcon',

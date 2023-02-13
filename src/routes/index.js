@@ -12,6 +12,7 @@ const Page404 = lazy(() => import('../pages/404'))
 const Blank = lazy(() => import('../pages/Blank'))
 const Investment = lazy(() => import('../pages/Investment'))
 const Guide = lazy(() => import('../pages/Guide'))
+const Settings = lazy(() => import('../pages/Settings'))
 
 
 /**
@@ -68,6 +69,10 @@ const routes = [
   {
     path: '/blank',
     component: Blank,
+  },
+  {
+    path: '/settings',
+    component: Settings,
   },
 ]
 
