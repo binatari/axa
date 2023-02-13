@@ -19,6 +19,7 @@ const CreateAccount = lazy(() => import("./pages/CreateAccount"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Verify = lazy(() => import("./pages/Verify"));
 const Home = lazy(() => import("./pages/Home"));
+const RegLayout = lazy(() => import("./components/Layout/Layout"))
 
 // const Guide = lazy(() => import("./pages/Guide"));
 
@@ -28,11 +29,14 @@ function App() {
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
+          <RegLayout>
           <Route path="/login" component={Login} />
           <Route path="/create-account" component={CreateAccount} />
           <Route path="/forgot-password" component={ForgotPassword} />
           <Route path="/verify" component={Verify} />
           <Route exact path="/" component={Home} />
+          </RegLayout>
+         
           <AuthContextProvider>
             <RouteUnauthenticated path="/app" component={Layout} />
           </AuthContextProvider>
