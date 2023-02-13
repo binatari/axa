@@ -29,14 +29,31 @@ function App() {
       <Router>
         <AccessibleNavigationAnnouncer />
         <Switch>
+          <Route path="/login">
+            <RegLayout>
+            <Login/>
+            </RegLayout>
+          </Route>
+          <Route path="/create-account">
           <RegLayout>
-          <Route path="/login" component={Login} />
-          <Route path="/create-account" component={CreateAccount} />
-          <Route path="/forgot-password" component={ForgotPassword} />
-          <Route path="/verify" component={Verify} />
-          <Route exact path="/" component={Home} />
-          </RegLayout>
-         
+            <CreateAccount/>
+            </RegLayout>
+          </Route>
+          <Route path="/forgot-password" >
+          <RegLayout>
+            <ForgotPassword/>
+            </RegLayout>
+          </Route>
+          <Route path="/verify">
+          <RegLayout>
+            <Verify/>
+            </RegLayout>
+          </Route>
+          <Route exact path="/">
+      
+            <Home/>
+          
+          </Route>
           <AuthContextProvider>
             <RouteUnauthenticated path="/app" component={Layout} />
           </AuthContextProvider>
