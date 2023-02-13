@@ -187,7 +187,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="No of withdrawals" value={withdrawCount}>
+        <InfoCard title="withdrawals" value={withdrawCount}>
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"
