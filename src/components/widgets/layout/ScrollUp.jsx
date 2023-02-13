@@ -11,7 +11,7 @@ function ScrollUp() {
   return (
     <Div>
       <a href="#" className={`${showScroll ?  "block" : "none"}`} >
-      <div className="mb-2 inline-flex h-10 w-10 items-center rounded-xl bg-black p-3 text-center shadow-lg">
+      <div className="mb-2 inline-flex h-10 w-10 items-center rounded-full bg-black p-3 text-center shadow-lg">
      <ArrowLongUpIcon className="h-6 w-6"/>
    </div>
       </a>

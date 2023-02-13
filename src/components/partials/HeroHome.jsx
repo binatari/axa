@@ -16,7 +16,7 @@ function HeroHome() {
         <div className="pt-32 pb-12 md:pt-40 md:pb-2">
 
           {/* Section header */}
-          <div className="text-center pb-12 md:pb-16">
+          <div id='About' className="text-center pb-12 md:pb-16">
           <img 
                alt="Phone Image"
                src="/img/phone.png"
@@ -30,7 +30,7 @@ function HeroHome() {
                   <a className=" btn text-gray-600  w-full mb-4 sm:w-auto sm:mb-0" href="/create-account">Apply</a>
                 </button>
 
-                <div id="About">
+                <div>
                 <strong 
                 variant="h1"
                 className="text-cool-gray-50 text-xl text-gray-600 mb-8"
@@ -47,7 +47,7 @@ function HeroHome() {
           <div className= "grid grid-cols-1 gap-6 md:relative md:-top-1 md:grid-cols-3 lg:grid-cols-3" data-aos="fade-up">
             <div className='bg-white rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-xl text-gray-600 mb-4">
+                className="text-2xl text-black text-gray-600 mb-4">
                The only Investment You need</h2>
              <span>
               Ninety Percent (90%) of all Millionaires become so through owning real estate
@@ -56,7 +56,7 @@ function HeroHome() {
 
             <div className='bg-white rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-xl text-gray-600 mb-4">
+                className="text-2xl text-black text-gray-600 mb-4">
                Reliable</h2>
              <span>
               Invest with confidence on the world's fastest and Most secure Real Estate
@@ -66,7 +66,7 @@ function HeroHome() {
 
             <div className='bg-white rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-xl text-gray-600 mb-4">
+                className="text-2xl text-black text-gray-600 mb-4">
                Growth</h2>
              <span>
              A lot of people become property investors because of capital growth

@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 
 import ImageLight from "../assets/img/login-office.jpeg";
 import ImageDark from "../assets/img/login-office-dark.jpeg";
-import { GithubIcon, TwitterIcon } from "../icons";
 import { Label, Input, Button } from "@windmill/react-ui";
 import { api } from "../utils/queries";
 import { toast } from "react-toastify";

@@ -6,7 +6,7 @@ function Ceotalk() {
   const [selected, setSelected] = useState(0);
 
   return (
-    <section className="relative  bg-red">
+    <section id='ceotalk'  className="relative  bg-red">
 
       {/* Illustration behind content */}
       <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 pointer-events-none -mb-32" aria-hidden="true">

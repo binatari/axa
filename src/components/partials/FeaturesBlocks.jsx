@@ -4,7 +4,7 @@ import {StarIcon} from "@heroicons/react/24/solid";
 function FeaturesBlocks() {
   const [show, setShow] = useState(false)
   return (
-    <section className="relative">
+    <section id='reviews'  className="relative">
 
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div className="absolute inset-0 top-1/2 md:mt-24 lg:mt-0 bg-gray-900 pointer-events-none" aria-hidden="true"></div>
@@ -74,8 +74,40 @@ function FeaturesBlocks() {
                 <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
                 </div>
                       
-              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Fast Prototyping</h4>
-              <p className="text-gray-600 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Lucas Marshall</h4>
+              <p className="text-gray-600 text-center">Exa RealEstate have been Profitable to me.</p>
+            </div>:null
+               }
+
+
+              {
+              show ?     <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+                  <div className="grid grid-cols-5 gap-3 pb-4 mx-auto md:grid-cols-5 xl:grid-cols-5">
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow"className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                </div>
+                      
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Ditte M. Nielsen</h4>
+              <p className="text-gray-600 text-center">Jeg elsker denne app, fordi den er sikker legitim.</p>
+            </div>:null
+               }
+
+
+                     {
+              show ?     <div className="relative flex flex-col items-center p-6 bg-white rounded shadow-xl">
+                  <div className="grid grid-cols-5 gap-3 pb-4 mx-auto md:grid-cols-5 xl:grid-cols-5">
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow"className="-mt-0.5  h-6 w-3.5"></StarIcon>
+                <StarIcon color="yellow" className="-mt-0.5 h-6 w-3.5"></StarIcon>
+                </div>
+                      
+              <h4 className="text-xl font-bold leading-snug tracking-tight mb-1">Anne Huard</h4>
+              <p className="text-gray-600 text-center">L'application fonctionne tres bien pour moi.</p>
             </div>:null
                }
 
