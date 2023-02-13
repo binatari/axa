@@ -32,6 +32,7 @@ import GiftCardModal from "../components/Modals/GiftCardModal";
 import USDModal from "../components/Modals/USDModal";
 import { api } from "../utils/queries";
 import WithDrawModal from "../components/Modals/WithDrawModal";
+import PaymentModal from "../components/Modals/PaymentModal";
 
 function Dashboard() {
   const [page, setPage] = useState(1);
@@ -41,6 +42,7 @@ function Dashboard() {
   const [count, setCount] = useState(0);
   const [amount, setAmount] = useState(0);
   const [address, setAddress] = useState('')
+  const [network, setNetwork] = useState('')
   const [pendingAmount, setPendingAmount] = useState(0);
   const [withdrew, setWithdrew] = useState(0);
   const [withdrawCount, setwithdrawCount] = useState(0);
@@ -127,6 +129,7 @@ function Dashboard() {
       .get("/address")
       .then((res) => {
         setAddress(res.data.data.attributes.address)
+        setNetwork(res.data.data.attributes?.network || '')
       })
       .catch((err) => console.log(err))
       ;
@@ -194,8 +197,8 @@ function Dashboard() {
         </InfoCard>
       </div>
       <div className="flex gap-3">
-        <GiftCardModal cb={getInfo} />
-        <USDModal address={address} cb={getInfo} />
+        {/* <GiftCardModal cb={getInfo} /> */}
+        <PaymentModal address={address} network={network} cb={getInfo} />
         <WithDrawModal totalWithdraw={amount - withdrew} cb={getInfo} />
       </div>
       <TableContainer>

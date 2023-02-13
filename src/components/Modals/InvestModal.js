@@ -7,6 +7,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
   import { toast } from 'react-toastify'
   
   var country_list = [
+  "",
  "residential",
  "industrial",
  "commercial"
@@ -86,12 +87,23 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
             </Label>
             <Label className="mt-4">
                 <span>Type</span>
-                <Select value={type} onChange={(e)=>setType(e.target.value)} name="country" className="mt-1">
+                <Select value={type} onChange={(e)=>setType(e.target.value)} name="country" className="mt-1 border rounded-sm">
                   {country_list.map((country) => (
                     <option value={country}>{country}</option>
                   ))}
                 </Select>
               </Label>
+              { amount && type ? (
+                <>
+                  <p className=" text-sm mt-4 ">Earn up to</p>
+                  <p className=" text-lg mt-2 font-bold"> ${type == 'residential'? (amount * 0.07).toFixed(2) : type == 'commercial' ? (amount * 0.09).toFixed(2)  : (amount * 0.05).toFixed(2) } </p>
+                  <p className=" text-sm mt-1 ">Interest weekly</p>
+                </>
+              ) : null}
+              {
+                type ?  <p className="font-semibold mt-4">Get up to {type == 'residential'? '7%' : type == 'commercial' ? '9%' : '5%' } with {type} investments</p> : null
+              }
+             
           </ModalBody>
           <ModalFooter>
             {/* I don't like this approach. Consider passing a prop to ModalFooter
@@ -111,7 +123,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
             </div>
               </div>
               {
-                amount > bal ?  <p className='text-sm text-red-600 text-center'>Amount to be invested is greater than your current balance, please top up or reduce amount to be invested</p> : null
+                amount > bal ?  <p className='text-sm text-red-600 text-center '>Amount to be invested is greater than your current balance, please top up or reduce amount to be invested</p> : null
               }
              
              </div>
