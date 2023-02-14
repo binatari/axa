@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 import { api } from "../../utils/queries";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const PaymentModal = ({ cb, address, network }) => {
   const [loading, setLoading] = useState(false);
@@ -77,6 +79,14 @@ const PaymentModal = ({ cb, address, network }) => {
   const handleFile = (e) => {
     setFiles(e.target.files);
   };
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if (paymentInfo.method == "gift card") {
+      history.push("/app/payments");
+    }
+  }, [paymentInfo.method]);
 
   return (
     <div>

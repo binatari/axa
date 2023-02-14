@@ -16,6 +16,11 @@ const routes = [
     icon: 'ChartsIcon',
     name: 'Investment',
   },
+  {
+    path: '/app/payments',
+    icon: 'TablesIcon',
+    name: 'Payment',
+  },
     {
     icon: 'PagesIcon',
     name: 'Guide',
@@ -46,11 +51,7 @@ const routes = [
   //   icon: 'ModalsIcon',
   //   name: 'Modals',
   // },
-  // {
-  //   path: '/app/tables',
-  //   icon: 'TablesIcon',
-  //   name: 'Tables',
-  // },
+ 
   // {
   //   icon: 'PagesIcon',
   //   name: 'Pages',

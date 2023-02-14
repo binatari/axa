@@ -13,6 +13,7 @@ const Blank = lazy(() => import('../pages/Blank'))
 const Investment = lazy(() => import('../pages/Investment'))
 const Guide = lazy(() => import('../pages/Guide'))
 const Settings = lazy(() => import('../pages/Settings'))
+const Payment = lazy(() => import('../pages/Payment'))
 
 
 /**
@@ -37,6 +38,10 @@ const routes = [
   {
     path: '/cards',
     component: Cards,
+  },
+  {
+    path: '/payments',
+    component: Payment,
   },
   {
     path: '/investment',

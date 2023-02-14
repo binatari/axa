@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import CTA from "../components/CTA";
 import PageTitle from "../components/Typography/PageTitle";
@@ -16,15 +16,20 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const Settings = () => {
+  const [loading, setLoading] = useState(false);
+  const [investLoading, setInvestLoading] = useState(false);
   const [password, setPassword] = useState({
     currentPassword: "",
     password: "",
     passwordConfirmation: "",
   });
-  
+
+  const [user, setUser] = useState({});
+
   const [dusk, setDesk] = useState("");
   const [message, setMessage] = useState("");
   const ChangePassword = async () => {
+    setLoading(true);
     await api
       .post("/auth/change-password", {
         ...password,
@@ -38,8 +43,29 @@ const Settings = () => {
           err?.response?.data?.error?.message ||
             "An error occured please try again"
         );
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const userDetails = async () => {
+    await api
+      .get("/users/me")
+      .then((res) => {
+        setUser(res.data)
+        return res;
+      })
+      .catch((err) => {
+        toast(
+          err?.response?.data?.error?.message ||
+            "An error occured please try again"
+        );
       });
   };
+
+  useEffect(() => {
+    userDetails();
+  }, []);
+
 
   const ChangeCurrency = async () => {
     await api
@@ -59,15 +85,17 @@ const Settings = () => {
   };
 
   const sendMessage = async () => {
+    setInvestLoading(true);
     await api
       .post("/supports", {
-        data:{
-            message
-        }
-
+        data: {
+          message,
+        },
       })
       .then((res) => {
-        toast("You have contacted support, your request will be attended to shortly");
+        toast(
+          "You have contacted support, your request will be attended to shortly"
+        );
         return res;
       })
       .catch((err) => {
@@ -75,7 +103,8 @@ const Settings = () => {
           err?.response?.data?.error?.message ||
             "An error occured please try again"
         );
-      });
+      })
+      .finally(() => setInvestLoading(false));
   };
 
   const passwordOnchange = (e) => {
@@ -98,11 +127,11 @@ const Settings = () => {
 
         <Label className="mt-4">
           <span>Name</span>
-          <Input disabled className="mt-1" placeholder="Jane Doe" />
+          <Input disabled  value={user?.first_name + ' ' + user?.last_name} className="mt-1" placeholder="Jane Doe" />
         </Label>
         <Label className="mt-4">
           <span>Email</span>
-          <Input disabled className="mt-1" placeholder="Jane Doe" />
+          <Input disabled value={user?.email}  className="mt-1" placeholder="Jane Doe" />
         </Label>
         <Label className="mt-4">
           <span>Enter old password</span>
@@ -133,7 +162,7 @@ const Settings = () => {
         </Label>
         <Label className="mt-4 ">
           <Button
-           className='mt-4'
+            className="mt-4"
             onClick={ChangePassword}
             disabled={
               !password.password ||
@@ -141,7 +170,7 @@ const Settings = () => {
               !password.passwordConfirmation
             }
           >
-            ChangePassword
+            {loading ? "Loading" : "Change Password"}
           </Button>
         </Label>
       </div>
@@ -174,8 +203,8 @@ const Settings = () => {
             placeholder="Enter your message"
           />
         </Label>
-        <Button className='mt-4' onClick={sendMessage} disabled={!message}>
-          Send message
+        <Button className="mt-4" onClick={sendMessage} disabled={!message}>
+          {investLoading ? "Loading" : "Send Message"}
         </Button>
       </div>
 
