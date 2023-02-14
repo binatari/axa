@@ -41,6 +41,7 @@ function Dashboard() {
   const [loading, setLoading] = useState([]);
   const [count, setCount] = useState(0);
   const [amount, setAmount] = useState(0);
+  const [investmentAmount, setInvestmentAmount] = useState(0);
   const [address, setAddress] = useState('')
   const [network, setNetwork] = useState('')
   const [pendingAmount, setPendingAmount] = useState(0);
@@ -102,6 +103,42 @@ function Dashboard() {
       ;
   };
 
+
+  const aggregateInvestment = async () => {
+    setLoading(true)
+    await api
+      .get("/investments?pagination[pageSize]=" + '1000' +'&fields[0]=amount&fields[1]=type')
+      .then((res) => {
+        const getIndustrial = res.data.data.filter((res)=>res.attributes.type == 'industrial')
+        const getCommercial = res.data.data.filter((res)=>res.attributes.type == 'commercial')
+        const getResidential = res.data.data.filter((res)=>res.attributes.type == 'residential')
+        const getAggregate = getIndustrial.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        const getCommercialAggregate = getCommercial.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+        const getResidentialAggregate = getResidential.reduce(function (
+          accumulator,
+          curValue
+        ) {
+          return accumulator + Number(curValue.attributes.amount);
+        },
+        0);
+       setInvestmentAmount(getAggregate + getCommercialAggregate + getResidentialAggregate)
+      })
+      .catch((err) => console.log(err))
+      .finally(()=>setLoading(false))
+  };
+
   const withDrawals = async () => {
     setLoading(true)
     await api
@@ -139,6 +176,7 @@ function Dashboard() {
     getAddress()
     allDonations();
     withDrawals()
+    aggregateInvestment()
   }, []);
 
   const getInfo = () =>{
@@ -169,7 +207,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Balance" value={!amount ? '$0' : "$" + (amount - withdrew)}>
+        <InfoCard title="Balance" value={!amount ? '$0' : "$" + (amount - withdrew - investmentAmount)}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
