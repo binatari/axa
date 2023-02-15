@@ -1,136 +1,97 @@
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect, } from 'react';
+import { Link } from 'react-router-dom';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function NavLink({ to, children }) {
+
+
+
+function Header() {
+
+  const [top, setTop] = useState(true);
+
+  // detect whether user has scrolled the page down by 10px 
+  useEffect(() => {
+    const scrollHandler = () => {
+      window.pageYOffset > 10 ? setTop(false) : setTop(true)
+    };
+    window.addEventListener('scroll', scrollHandler);
+    return () => window.removeEventListener('scroll', scrollHandler);
+  }, [top]);  
+
+
+ 
+  const [show, setShow] = useState(false);
+  
   return (
-    <Link to={to} className={`mx-4`}>
-      {children}
-    </Link>
-  );
-}
+    <header className={`fixed w-full z-30 md:bg-opacity-90 transition duration-300 ease-in-out ${!top && 'bg-white  backdrop-blur-sm shadow-lg'}`}>
+      <div className="max-w-6xl mx-auto px-5 sm:px-6">
+        <div className="flex items-center justify-between h-16 md:h-20">
 
-function MobileNav({ open, setOpen }) {
-  return (
-    <div
-      className={`absolute md:hidden top-0 left-0 h-screen w-screen  transform ${
-        open ? "-translate-x-0" : "-translate-x-full"
-      } transition-transform duration-300 ease-in-out filter drop-shadow-md `}
-    >
-      <div className="flex items-center justify-center filter drop-shadow-md bg-white dark:bg-black h-20">
-        {" "}
-        {/*logo container*/
-        } 
-        <Link className="text-2xl block dark:hidden font-semibold" href="/">
-            <img src="/logo.jpeg" className="text-2xl max-h-8 block dark:hidden font-semibold" />
-          </Link>
-          <Link className="text-2xl hidden dark:block font-semibold" href="/">
-            <img src="/logo.jpeg" className="text-2xl max-h-8 hidden dark:block font-semibold" />
-          </Link>
-      </div>
-      <div className="flex flex-col bg-white pl-4">
-        <a
-          className="text-normal dark:text-white font-medium my-4"
-          href="/"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-        Home
-        </a>
-        <a
-          className="text-normal dark:text-white font-normal my-4"
-          href="/about"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-        About
-        </a>
-        <a
-          className="text-normal dark:text-white font-normal my-4"
-          href="/projects"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-        Projects
-        </a>
-        <a
-          className="text-normal dark:text-white font-normal my-4"
-          href="/etc"
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }
-        >
-        Etc.
-        </a>
-      </div>
-    </div>
-  );
-}
-
-export default function Header() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="filter  fixed w-full z-[1000] bg-white md:bg-transparent">
-      <nav className="flex container mx-auto   px-4 py-4 h-20 items-center">
-        <MobileNav open={open} setOpen={setOpen} />
-        <div className="w-3/12 flex items-center">
-          <Link className="text-2xl block dark:hidden font-semibold" href="/">
-            <img src="/logo.jpeg" className="text-2xl max-h-8 block dark:hidden font-semibold" />
-          </Link>
-          <Link className="text-2xl hidden dark:block font-semibold" href="/">
-            <img src="/logo.jpeg" className="text-2xl max-h-8 hidden dark:block font-semibold" />
-          </Link>
-        </div>
-        <div className="w-9/12 flex justify-end items-center">
-          <div
-            className="z-50 flex gap-3 relative  md:hidden"
-           
-          >
-            <div className="w-8 h-8 flex flex-col justify-between items-center"  onClick={() => {
-              setOpen(!open);
-            }}>
-              <span
-                className={` w-full bg-black dark:bg-white rounded-lg transform transition duration-300 ease-in-out ${
-                  open ? "rotate-45  translate-y-4" : ""
-                }`}
-                style={{height:'2px'}}
-              />
-              <span
-                className={` bg-black dark:bg-white rounded-lg transition-all duration-300 ease-in-out ${
-                  open ? "w-0" : "w-full"
-                }`}
-                style={{height:'2px'}}
-              />
-              <span
-                className={` w-full bg-black dark:bg-white rounded-lg transform transition duration-300 ease-in-out ${
-                  open ? "-rotate-45  -translate-y-4" : ""
-                }`}
-                style={{height:'2px'}}
-              />
-            </div>
-            {/* hamburger button */}
-
+          {/* Site branding */}
+          <div className="flex-shrink-0 mr-4">
+            {/* Logo */}
+            <Link to="/" className="block" aria-label="Cruip">
+            <h1 className='  text-red bg-white rounded-md hover:text-black px-5' >EXA_REAL_ESTATE</h1>           
+           </Link>
+          </div>
+    
         
-          </div>
 
-          <div className="hidden md:flex gap-4 text-small text-white">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/create-account">Create Account</NavLink>
-            <NavLink to="/login">Login</NavLink>
-            {/* <NavLink to="/etc">Etc.</NavLink> */}
-          </div>
+          {/* Site navigation */}
+          <nav className=" hidden  lg:flex lg:flex-grow">
+            <ul className="flex flex-grow justify-end flex-wrap items-center">
+              <li>
+                <Link to="/login" className="font-medium bg-green rounded-md text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Sign in</Link>
+              </li>
+
+              <li>
+                <a href="/create-account" className="font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">APPLY</a>
+              </li>
+            </ul>
+   
+          </nav>
+
+        <button onClick={() => setShow(!show)} 
+              className="ml-auto text-inherit bg-black text-center text-blue-gray-50   focus:bg-black active:bg-black lg:hidden px-2 py-2 rounded-lg"
+           > 
+             {show ? (
+            <XMarkIcon strokeWidth={2} className="h-6 w-6  text-cool-gray-50" />
+          ) : (
+            <Bars3Icon strokeWidth={2} className="h-6 w-6 text-cool-gray-50" />
+          )}
+           </button>
+
+            {
+              show ? <div className=" w-5/6 absolute  mt-20 -mb-32 ml-10 items-center p-6 bg-white rounded shadow-xl">
+
+          {/* Site navigation */}
+          <nav>
+            <ul className="items-center text-center">
+
+            <li  className='mb-4 text-center' >
+                <Link to="/login" className="justify-center text-center  font-medium rounded-md ml-3 text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center  bg-green ">Login</Link>
+              </li>
+
+            {/* <li className='mb-4 text-center'>
+                <a href="https://t.me/+KJXgmnTrtyc0OTk" className="justify-center text-center  font-medium rounded-md ml-3 bg-blue  text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center ">Join Telegram</a>
+              </li> */}
+              
+              <li  className='text-center' >
+                <Link to="/create-account" className="justify-center text-center  font-medium rounded-md ml-3 text-gray-600 hover:text-gray-900 px-5 py-2 flex items-center  bg-blue ">Apply</Link>
+              </li>
+
+            </ul>
+   
+          </nav>
+             
+            </div>:null
+               }
+
+
         </div>
-      </nav>
-    </div>
+      </div>
+    </header>
   );
 }
+
+export default Header;

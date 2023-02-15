@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect} from "react";
+import AOS from 'aos';
 // import Modal from '../../utils/Modal';
 
 // import HeroImage from '../../images/hero-image.png';
 
 function HeroHome() {
-
- 
+  useEffect(() => {
+    AOS.init({duration: 1000});
+  }, []);
 
   return (
     <section className="relative bg-red ">
@@ -16,7 +18,7 @@ function HeroHome() {
         <div className="pt-32 pb-12 md:pt-40 md:pb-2">
 
           {/* Section header */}
-          <div id='About' className="text-center pb-12 md:pb-16">
+          <div data-aos="fade-in"  id='About' className="text-center pb-12 md:pb-16">
           <img 
                alt="Phone Image"
                src="/img/phone.png"
@@ -45,32 +47,35 @@ function HeroHome() {
 
           {/* Hero Features */}
           <div className= "grid grid-cols-1 gap-6 md:relative md:-top-1 md:grid-cols-3 lg:grid-cols-3" data-aos="fade-up">
-            <div className='bg-white rounded-md  items-center justify-center text-center'>
+            <div className=' text-white bg2 rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-2xl text-black text-gray-600 mb-4">
-               The only Investment You need</h2>
+                className=" p-4 text-2xl text-white mb-4">
+               THE ONLY INVESTMENT YOU NEED </h2>
              <span>
               Ninety Percent (90%) of all Millionaires become so through owning real estate
-             </span>
+             </span> <br />
+             <a className='p-auto border-white border-solid rounded-md  bg-black text-white items-center justify-center ' href="/login"> Choose Your Investment</a>
             </div>
 
-            <div className='bg-white rounded-md  items-center justify-center text-center'>
+            <div className='text-white bg3 rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-2xl text-black text-gray-600 mb-4">
-               Reliable</h2>
+                className="p-4 text-2xl text-black text-gray-600 mb-4">
+               RELIABLE</h2>
              <span>
               Invest with confidence on the world's fastest and Most secure Real Estate
-             </span>
+             </span> <br />
+             <a className='p-auto border-white border-solid rounded-md  bg-black text-white items-center justify-center ' href="/login"> Choose Your Investment</a>   
             </div>
 
 
-            <div className='bg-white rounded-md  items-center justify-center text-center'>
+            <div className='text-white bg1 rounded-md  items-center justify-center text-center'>
               <h2 
-                className="text-2xl text-black text-gray-600 mb-4">
-               Growth</h2>
-             <span>
+                className="p-4  text-2xl text-white text-gray-600 mb-4">
+               GROWTH</h2>
+             <span>           
              A lot of people become property investors because of capital growth
-             </span>
+             </span> <br />
+             <a className='p-auto border-white border-solid rounded-md  bg-black text-white items-center justify-center ' href="/login"> Choose Your Investment</a>     
             </div>
 
           </div>
