@@ -7,6 +7,9 @@ import { Doughnut, Line } from "react-chartjs-2";
 import ChartLegend from "../components/Chart/ChartLegend";
 import PageTitle from "../components/Typography/PageTitle";
 import { ChatIcon, CartIcon, MoneyIcon, PeopleIcon } from "../icons";
+import {
+  Button,
+} from "@windmill/react-ui";
 import RoundIcon from "../components/RoundIcon";
 import response from "../utils/demo/tableData";
 import {
@@ -37,6 +40,8 @@ import PaymentModal from "../components/Modals/PaymentModal";
 function Dashboard() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
+  const [withdrawals, setWithdrawals] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const [lastPage, setLastPage] = useState(0);
   const [loading, setLoading] = useState([]);
   const [count, setCount] = useState(0);
@@ -154,6 +159,7 @@ function Dashboard() {
         },
         0);
         setWithdrew(getAggregate)
+        setWithdrawals(res.data.data)
         setwithdrawCount(res.data.meta.pagination.total)
       })
       .catch((err) => console.log(err))
@@ -257,12 +263,18 @@ function Dashboard() {
           />
         </InfoCard>
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-3 justify-between">
         {/* <GiftCardModal cb={getInfo} /> */}
+        <div className="flex gap-3">
         <PaymentModal address={address} network={network} cb={getInfo} />
         <WithDrawModal totalWithdraw={user?.balance ? Number(user?.balance) : 0} cb={getInfo} />
+        </div>
+        <Button  onClick={()=>setToggle(!toggle)}>
+         {!toggle ? 'View withdrawals' : 'View Deposits'}
+        </Button>
       </div>
-      <TableContainer>
+      {
+        !toggle ?       <TableContainer>
         <Table>
           <TableHeader>
             <tr>
@@ -311,7 +323,54 @@ function Dashboard() {
             onChange={onPageChange}
           />
         </TableFooter> */}
+      </TableContainer> :       <TableContainer>
+        <Table>
+          <TableHeader>
+            <tr>
+              <TableCell>Amount</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Date</TableCell>
+            </tr>
+          </TableHeader>
+          <TableBody>
+            {withdrawals.map((user, i) => (
+              <TableRow key={i}>
+                {/* <TableCell>
+                  <div className="flex items-center text-sm">
+                    <Avatar className="hidden mr-3 md:block" src={user.avatar} alt="User image" />
+                    <div>
+                      <p className="font-semibold">{user.name}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">{user.job}</p>
+                    </div>
+                  </div>
+                </TableCell> */}
+                <TableCell>
+                  <span className="text-sm">$ {user.attributes.amount}</span>
+                </TableCell>
+                <TableCell>
+                  <Badge type={user.status}>{user.attributes.is_verified ? 'verified' : 'pending'}</Badge>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">
+                    {new Date(user.attributes.publishedAt).toLocaleDateString()}
+                  </span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        {/* <TableFooter>
+          <Pagination
+            className="bg-custom-red"
+            totalResults={totalResults}
+            resultsPerPage={data?.length || 0}
+            label="Table navigation"
+            onChange={onPageChange}
+          />
+        </TableFooter> */}
       </TableContainer>
+      }
+
 
       {/* <PageTitle>Charts</PageTitle> */}
       {/* <div className="grid gap-6 mb-8 md:grid-cols-2">

@@ -56,7 +56,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
         await api
           .post("/investments", {data:{type, amount}})
           .then((res) => {
-            toast('Investment made successfully')
+            toast.success('Investment made successfully')
             cb()
             setTimeout(closeModal, 1000)
             return res.data;

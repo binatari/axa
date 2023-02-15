@@ -67,7 +67,7 @@ const PaymentModal = ({ cb, address, network }) => {
     await api
       .post("/donations", formData)
       .then((res) => {
-        toast("Desposit made");
+        toast.success("Desposit made");
         cb();
         setTimeout(closeModal, 1000);
         return res.data;
