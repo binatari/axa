@@ -33,7 +33,7 @@ const WithDrawModal = ({cb, totalWithdraw}) => {
             data: { amount, is_verified:false },
           })
           .then((res) => {
-            toast("Your withdrawal has been placed");
+            toast.success("Your withdrawal has been placed");
             cb();
             setTimeout(closeModal, 1000);
             return res.data;

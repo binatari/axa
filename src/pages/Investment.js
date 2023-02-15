@@ -20,6 +20,7 @@ import {
   Avatar,
   Badge,
   Pagination,
+  Button,
 } from '@windmill/react-ui'
 
 import {
@@ -31,6 +32,8 @@ import {
 import { api } from '../utils/queries'
 import InvestModal from '../components/Modals/InvestModal'
 import Note from '../components/Note'
+import WithDrawInvestment from '../components/Modals/WithdrawInvestment'
+import { toast } from 'react-toastify'
 
 function Investment() {
   const [page, setPage] = useState(1)
@@ -117,6 +120,26 @@ function Investment() {
       .get("/users/me")
       .then((res) => {
         setUser(res.data)
+        setResidential(res.data.residential_investment)
+        setCommercial(res.data.commercial_investment)
+        setIndustrial(res.data.industriaI_investment)
+        return res;
+      })
+      .catch((err) => {
+        console.log(err)
+        // toast(
+        //   err?.response?.data?.error?.message ||
+        //     "An error occured please try again"
+        // );
+      });
+  };
+
+  const withdrawProfit = async () => {
+    await api
+      .post("/collection")
+      .then((res) => {
+       console.log(res)
+         toast.success('Withdrawal processed successfully');
         return res;
       })
       .catch((err) => {
@@ -134,7 +157,7 @@ function Investment() {
 
   useEffect(() => {
     if(count){
-      aggregate();
+      userDetails();
     }
   }, [count]);
 
@@ -183,8 +206,16 @@ function Investment() {
         </InfoCard>
       </div>
       <Note/>
-      <div className="flex gap-3">
+      <div className="flex gap-3 justify-between">
         <InvestModal cb={()=> allDonations()} />
+        <div>
+        <div className='flex gap-3'>
+        <Button disabled={!user.profit}  onClick={withdrawProfit}>
+          Withdraw profit
+        </Button> 
+        <WithDrawInvestment totalWithdraw={Number(residential) + Number(commercial) + Number(industrial)} cb={userDetails}/>
+        </div>
+        </div>
       </div>
       <TableContainer>
         <Table>
