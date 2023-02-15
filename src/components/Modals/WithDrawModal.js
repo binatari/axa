@@ -30,7 +30,7 @@ const WithDrawModal = ({cb, totalWithdraw}) => {
         setLoading(true);
         await api
           .post("/withdrawals", {
-            data: { amount },
+            data: { amount, is_verified:false },
           })
           .then((res) => {
             toast("Your withdrawal has been placed");

@@ -103,6 +103,8 @@ function Dashboard() {
       ;
   };
 
+  const [user, setUser] = useState({});
+
 
   const aggregateInvestment = async () => {
     setLoading(true)
@@ -172,6 +174,23 @@ function Dashboard() {
       ;
   };
 
+
+  const userDetails = async () => {
+    await api
+      .get("/users/me")
+      .then((res) => {
+        setUser(res.data)
+        return res;
+      })
+      .catch((err) => {
+
+      });
+  };
+
+  useEffect(() => {
+    userDetails();
+  }, []);
+
   useEffect(() => {
     getAddress()
     allDonations();
@@ -181,6 +200,7 @@ function Dashboard() {
 
   const getInfo = () =>{
     allDonations()
+    userDetails()
     withDrawals()
   }
 
@@ -190,11 +210,14 @@ function Dashboard() {
     }
   }, [count]);
 
+
+  console.log(Number(user?.balance))
   return (
     <>
       <PageTitle>Dashboard</PageTitle>
 
       <CTA />
+      
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
@@ -207,7 +230,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Balance" value={!amount ? '$0' : "$" + (amount - withdrew - investmentAmount)}>
+        <InfoCard title="Balance" value={!user?.balance ? '$0' : "$" + (user?.balance)}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -237,7 +260,7 @@ function Dashboard() {
       <div className="flex gap-3">
         {/* <GiftCardModal cb={getInfo} /> */}
         <PaymentModal address={address} network={network} cb={getInfo} />
-        <WithDrawModal totalWithdraw={amount - withdrew} cb={getInfo} />
+        <WithDrawModal totalWithdraw={user?.balance ? Number(user?.balance) : 0} cb={getInfo} />
       </div>
       <TableContainer>
         <Table>
