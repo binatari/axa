@@ -43,6 +43,9 @@ function Investment() {
   const [residential, setResidential] = useState(0);
   const [industrial, setIndustrial] = useState(0);
 
+  const [user, setUser] = useState({
+    profit:0
+  });
   // pagination setup
   const resultsPerPage = 10
   const totalResults = response.length
@@ -109,6 +112,26 @@ function Investment() {
     allDonations();
   }, []);
 
+  const userDetails = async () => {
+    await api
+      .get("/users/me")
+      .then((res) => {
+        setUser(res.data)
+        return res;
+      })
+      .catch((err) => {
+        console.log(err)
+        // toast(
+        //   err?.response?.data?.error?.message ||
+        //     "An error occured please try again"
+        // );
+      });
+  };
+
+  useEffect(() => {
+    userDetails();
+  }, []);
+
   useEffect(() => {
     if(count){
       aggregate();
@@ -123,7 +146,7 @@ function Investment() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total Investment balance" value={'$'+amount}>
+        <InfoCard title="Total Investment profit" value={ user?.profit ? `$${user.profit}` : `$${0}`}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
