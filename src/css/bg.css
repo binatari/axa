@@ -5,3 +5,23 @@
     background-size: cover;
     background-position: center;
 }
+.bg1{
+    background: url(/img/background11.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg2{
+    background: url(/img/background12.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.bg3{
+    background: url(/img/background13.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
