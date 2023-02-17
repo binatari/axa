@@ -1,24 +1,25 @@
 import React, {useEffect} from "react";
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 // import Modal from '../../utils/Modal';
 
 // import HeroImage from '../../images/hero-image.png';
 
 function HeroHome() {
   useEffect(() => {
-    AOS.init({duration: 1000});
+    AOS.init({duration: 2000});
   }, []);
 
   return (
     <section className="relative bg-red ">
   
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div data-aos="fade-in" className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Hero content */}
         <div className="pt-32 pb-12 md:pt-40 md:pb-2">
 
           {/* Section header */}
-          <div data-aos="fade-in"  id='About' className="text-center pb-12 md:pb-16">
+          <div id='About' className="text-center pb-12 md:pb-16">
           <img 
                alt="Phone Image"
                src="/img/phone.png"
