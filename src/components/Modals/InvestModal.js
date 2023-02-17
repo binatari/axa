@@ -87,7 +87,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
             </Label>
             <Label className="mt-4">
                 <span>Type</span>
-                <Select value={type} onChange={(e)=>setType(e.target.value)} name="country" className="mt-1 border rounded-sm">
+                <Select value={type} onChange={(e)=>setType(e.target.value)} name="country" className="mt-1 p-2 border rounded-sm">
                   {country_list.map((country) => (
                     <option value={country}>{country}</option>
                   ))}

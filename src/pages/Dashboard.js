@@ -227,7 +227,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total deposits" value={count}>
+        <InfoCard title="TOTAL DEPOSITS" value={count}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -236,7 +236,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Balance" value={!user?.balance ? '$0' : "$" + (user?.balance)}>
+        <InfoCard title="BALANCE" value={!user?.balance ? '$0' : "$" + (user?.balance)}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -245,7 +245,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total Pending deposit" value={'$' + pendingAmount}>
+        <InfoCard title="TOTAL PENDING DEPOSITS" value={'$' + pendingAmount}>
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -254,7 +254,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="withdrawals" value={withdrawCount}>
+        <InfoCard title="WITHDRAWALS" value={withdrawCount}>
           <RoundIcon
             icon={ChatIcon}
             iconColorClass="text-teal-500 dark:text-teal-100"

@@ -163,7 +163,7 @@ function Investment() {
 
   return (
     <>
-      <PageTitle>Investment</PageTitle>
+      <PageTitle>INVESTMENT</PageTitle>
 
       {/* <CTA /> */}
 
