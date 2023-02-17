@@ -112,12 +112,12 @@ const PaymentModal = ({ cb, address, network }) => {
               className="mt-1 p-2 border rounded-sm"
             >
               <option></option>
-              <option>usd (Tether) - Deposit USDT From Crypto wallet to your Exa account
-                2 minutes 0% fee Up to € 1,000,000 daily deposit limit
+              <option
+              label="Gift Card -(Most popular 7 minutes 0% fee) ">gift card
               </option>
-              <option>gift card -
-               (Most popular 7 minutes 0% fee) 
-              </option>
+              <option 
+              label="USDT (Tether) - Deposit USDT From Crypto wallet to your Exa account
+              2 minutes 0% fee Up to € 1,000,000 daily deposit limit">usd </option>
             </Select>
           </Label>
           {paymentInfo.method ? (
