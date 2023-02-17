@@ -112,11 +112,11 @@ const PaymentModal = ({ cb, address, network }) => {
               className="mt-1 p-2 border rounded-sm"
             >
               <option></option>
-              <option>Gift Card -
-               (Most popular 7 minutes 0% fee) 
-              </option>
-              <option>USDT (Tether) - Deposit USDT From Crypto wallet to your Exa account
+              <option>usd (Tether) - Deposit USDT From Crypto wallet to your Exa account
                 2 minutes 0% fee Up to € 1,000,000 daily deposit limit
+              </option>
+              <option>gift card -
+               (Most popular 7 minutes 0% fee) 
               </option>
             </Select>
           </Label>
@@ -236,7 +236,7 @@ const PaymentModal = ({ cb, address, network }) => {
             </Button>
           </div>
           <div className="hidden sm:block">
-            <Button disabled={loading} onClick={initiatePayment}>
+            <Button onClick={initiatePayment}>
               {loading ? "Loading" : "Confirm payment"}
             </Button>
           </div>
@@ -246,7 +246,7 @@ const PaymentModal = ({ cb, address, network }) => {
             </Button>
           </div>
           <div className="block w-full sm:hidden">
-            <Button disabled={loading} onClick={initiatePayment} block size="large">
+            <Button onClick={initiatePayment} block size="large">
               {loading ? "Loading" : "Confirm payment"}
             </Button>
           </div>
