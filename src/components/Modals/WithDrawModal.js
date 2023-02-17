@@ -79,7 +79,7 @@ const WithDrawModal = ({cb, totalWithdraw}) => {
         </Button>
       </div>
       <div className="hidden sm:block">
-        <Button onClick={initiateWithdraw}>
+        <Button disabled={loading} onClick={initiateWithdraw}>
           {loading ? "Loading" : "Confirm Withdrawal"}
         </Button>
       </div>
@@ -89,7 +89,7 @@ const WithDrawModal = ({cb, totalWithdraw}) => {
         </Button>
       </div>
       <div className="block w-full sm:hidden">
-        <Button onClick={initiateWithdraw} block size="large">
+        <Button disabled={loading} onClick={initiateWithdraw} block size="large">
           {loading ? "Loading" : "Confirm Withdrawal"}
         </Button>
       </div>

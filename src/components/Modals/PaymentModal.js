@@ -232,7 +232,7 @@ const PaymentModal = ({ cb, address, network }) => {
             </Button>
           </div>
           <div className="hidden sm:block">
-            <Button onClick={initiatePayment}>
+            <Button disabled={loading} onClick={initiatePayment}>
               {loading ? "Loading" : "Confirm payment"}
             </Button>
           </div>
@@ -242,7 +242,7 @@ const PaymentModal = ({ cb, address, network }) => {
             </Button>
           </div>
           <div className="block w-full sm:hidden">
-            <Button onClick={initiatePayment} block size="large">
+            <Button disabled={loading} onClick={initiatePayment} block size="large">
               {loading ? "Loading" : "Confirm payment"}
             </Button>
           </div>

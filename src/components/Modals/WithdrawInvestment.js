@@ -89,7 +89,7 @@ const WithDrawInvestment = ({ cb, totalWithdraw }) => {
             </Button>
           </div>
           <div className="hidden sm:block">
-            <Button disabled={!type} onClick={initiateWithdraw}>
+            <Button  disabled={!type || loading} onClick={initiateWithdraw}>
               {loading ? "Loading" : "Confirm Withdrawal"}
             </Button>
           </div>
@@ -99,7 +99,7 @@ const WithDrawInvestment = ({ cb, totalWithdraw }) => {
             </Button>
           </div>
           <div className="block w-full sm:hidden">
-            <Button disabled={!type} onClick={initiateWithdraw} block size="large">
+            <Button disabled={!type || loading} onClick={initiateWithdraw} block size="large">
               {loading ? "Loading" : "Confirm Withdrawal"}
             </Button>
           </div>

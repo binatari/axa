@@ -119,7 +119,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
               </Button>
             </div>
             <div className="hidden sm:block">
-              <Button disabled={!amount || amount > bal || !type} onClick={initiatePayment}>{loading? 'Loading' : 'Confirm payment'}</Button>
+              <Button disabled={!amount || amount > bal || !type || loading} onClick={initiatePayment}>{loading? 'Loading' : 'Confirm payment'}</Button>
             </div>
               </div>
               {
@@ -135,7 +135,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button,  Label,
               </Button>
             </div>
             <div className="block w-full sm:hidden">
-              <Button disabled={!amount || amount > bal || !type} onClick={initiatePayment} block size="large">
+              <Button disabled={!amount || amount > bal || !type  || loading} onClick={initiatePayment} block size="large">
               {loading? 'Loading' : 'Confirm Investment'}
               </Button>
               {

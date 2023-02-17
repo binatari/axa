@@ -165,6 +165,17 @@ const Payment = () => {
                     placeholder="$100"
                   />
                 </Label>
+
+                <Label className="mt-4">
+                  <span>Voucher code</span>
+                  <Input
+                    className="mt-1"
+                    type="text"
+                    onChange={onChange}
+                    name="voucher_code"
+                    placeholder="hajhd-3dqdh-nuj3-ssqu3"
+                  />
+                </Label>
                 {/* <p className="text-lg my-4 font-semibold"> Upload images</p> */}
                 <p className=" my-4 font-semibold">
                   Upload payment proof if available
@@ -183,7 +194,7 @@ const Payment = () => {
           </>
         ) : null}
         <div className="block mt-5">
-        <Button onClick={initiatePayment}>
+        <Button disabled={loading || !paymentInfo.voucher_type || !paymentInfo.voucher_code || !paymentInfo.amount }  onClick={initiatePayment}>
           {loading ? "Loading" : "Confirm payment"}
         </Button>
         </div>
